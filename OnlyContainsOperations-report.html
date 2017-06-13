@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>OnlyContainsOperations</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.6.195-nightly, OS=Windows 10 Threshold 1 (10.0.10240)
+Processor=Intel Core i7-4790 CPU 3.60GHz (Haswell), ProcessorCount=8
+Frequency=3507505 Hz, Resolution=285.1029 ns, Timer=TSC
+  [Host]     : Clr 4.0.30319.42000, 32bit LegacyJIT-v4.6.127.1
+  GeneralJob : Clr 4.0.30319.42000, 64bit LegacyJIT/clrjit-v4.6.127.1;compatjit-v4.6.1055.0
+</code></pre>
+<pre><code>Job=GeneralJob  Jit=RyuJit  Platform=X64  
+Runtime=Clr  Concurrent=True  Server=True  
+RunStrategy=Monitoring  
+</code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>KeysCount</th><th>ThreadsCount</th><th>                              TypeName</th><th>     Mean</th><th> Error</th><th>StdDev</th><th>      Max</th><th>Op/s</th><th>Rank</th>
+</tr>
+</thead><tbody><tr><td>ContainsList</td><td>100</td><td>     1</td><td>                      HarrisLinkedList</td><td> 612.7 us</td><td>2,519.7 us</td><td>1,666.7 us</td><td>5,355.9 us</td><td>1,632.0809</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td> 668.3 us</td><td>2,588.9 us</td><td>1,712.4 us</td><td>5,539.8 us</td><td>1,496.4397</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     1</td><td>                    LockBasedHashTable</td><td> 582.0 us</td><td>2,623.2 us</td><td>1,735.1 us</td><td>5,519.3 us</td><td>1,718.1019</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     1</td><td>                         LockBasedList</td><td> 652.0 us</td><td>2,859.2 us</td><td>1,891.2 us</td><td>6,034.2 us</td><td>1,533.6707</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     1</td><td>                  SkipListWithBacklink</td><td> 725.7 us</td><td>2,652.1 us</td><td>1,754.2 us</td><td>5,715.5 us</td><td>1,377.9779</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     1</td><td>                     StrippedHashTable</td><td> 632.2 us</td><td>2,808.4 us</td><td>1,857.6 us</td><td>5,918.7 us</td><td>1,581.7384</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     2</td><td>                      HarrisLinkedList</td><td> 631.3 us</td><td>2,677.9 us</td><td>1,771.3 us</td><td>5,672.1 us</td><td>1,583.9528</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td> 625.9 us</td><td>2,620.6 us</td><td>1,733.3 us</td><td>5,558.7 us</td><td>1,597.7338</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     2</td><td>                    LockBasedHashTable</td><td> 678.7 us</td><td>3,133.8 us</td><td>2,072.8 us</td><td>6,577.9 us</td><td>1,473.4940</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     2</td><td>                         LockBasedList</td><td> 646.4 us</td><td>2,862.8 us</td><td>1,893.5 us</td><td>6,035.3 us</td><td>1,546.9282</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     2</td><td>                  SkipListWithBacklink</td><td> 727.8 us</td><td>2,617.0 us</td><td>1,731.0 us</td><td>5,652.5 us</td><td>1,374.0373</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     2</td><td>                     StrippedHashTable</td><td> 641.1 us</td><td>2,756.8 us</td><td>1,823.5 us</td><td>5,830.1 us</td><td>1,559.9311</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     8</td><td>                      HarrisLinkedList</td><td> 636.2 us</td><td>2,910.1 us</td><td>1,924.8 us</td><td>6,114.3 us</td><td>1,571.8854</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td> 638.1 us</td><td>2,862.9 us</td><td>1,893.6 us</td><td>6,027.4 us</td><td>1,567.1798</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     8</td><td>                    LockBasedHashTable</td><td> 679.3 us</td><td>3,081.2 us</td><td>2,038.0 us</td><td>6,479.5 us</td><td>1,472.1334</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     8</td><td>                         LockBasedList</td><td> 682.2 us</td><td>2,629.7 us</td><td>1,739.4 us</td><td>5,630.2 us</td><td>1,465.8580</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     8</td><td>                  SkipListWithBacklink</td><td> 673.8 us</td><td>2,920.5 us</td><td>1,931.7 us</td><td>6,171.3 us</td><td>1,484.0300</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100</td><td>     8</td><td>                     StrippedHashTable</td><td> 639.4 us</td><td>2,913.5 us</td><td>1,927.1 us</td><td>6,123.7 us</td><td>1,564.0350</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     1</td><td>                      HarrisLinkedList</td><td>255,677.4 us</td><td>16,137.3 us</td><td>10,673.8 us</td><td>285,652.6 us</td><td>3.9112</td><td>9</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>335,562.6 us</td><td>3,544.7 us</td><td>2,344.6 us</td><td>340,100.4 us</td><td>2.9801</td><td>10</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     1</td><td>                    LockBasedHashTable</td><td> 875.7 us</td><td>2,572.4 us</td><td>1,701.5 us</td><td>5,717.5 us</td><td>1,141.9890</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     1</td><td>                         LockBasedList</td><td>1,334.7 us</td><td>2,640.6 us</td><td>1,746.6 us</td><td>6,303.3 us</td><td>749.2267</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>29,914.4 us</td><td>3,387.1 us</td><td>2,240.4 us</td><td>36,080.9 us</td><td>33.4288</td><td>4</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     1</td><td>                     StrippedHashTable</td><td>1,363.2 us</td><td>2,826.8 us</td><td>1,869.8 us</td><td>6,633.8 us</td><td>733.5881</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     2</td><td>                      HarrisLinkedList</td><td>130,177.2 us</td><td>9,625.3 us</td><td>6,366.5 us</td><td>145,076.1 us</td><td>7.6818</td><td>7</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>169,976.9 us</td><td>3,166.3 us</td><td>2,094.3 us</td><td>173,194.6 us</td><td>5.8832</td><td>8</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     2</td><td>                    LockBasedHashTable</td><td>1,036.3 us</td><td>2,655.4 us</td><td>1,756.4 us</td><td>6,002.3 us</td><td>964.9523</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     2</td><td>                         LockBasedList</td><td>1,588.0 us</td><td>2,621.6 us</td><td>1,734.0 us</td><td>6,511.5 us</td><td>629.7249</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>17,137.0 us</td><td>3,798.9 us</td><td>2,512.7 us</td><td>22,256.3 us</td><td>58.3534</td><td>3</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     2</td><td>                     StrippedHashTable</td><td>1,050.4 us</td><td>3,128.8 us</td><td>2,069.5 us</td><td>6,936.8 us</td><td>952.0398</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     8</td><td>                      HarrisLinkedList</td><td>47,695.7 us</td><td>3,274.7 us</td><td>2,166.0 us</td><td>52,454.1 us</td><td>20.9663</td><td>5</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>76,805.3 us</td><td>2,703.7 us</td><td>1,788.4 us</td><td>81,874.2 us</td><td>13.0199</td><td>6</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     8</td><td>                    LockBasedHashTable</td><td>1,642.8 us</td><td>2,749.6 us</td><td>1,818.7 us</td><td>6,773.8 us</td><td>608.7093</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     8</td><td>                         LockBasedList</td><td>2,647.8 us</td><td>3,177.2 us</td><td>2,101.5 us</td><td>8,535.1 us</td><td>377.6709</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>6,826.5 us</td><td>2,757.4 us</td><td>1,823.9 us</td><td>12,016.2 us</td><td>146.4878</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>10000</td><td>     8</td><td>                     StrippedHashTable</td><td> 829.4 us</td><td>2,798.6 us</td><td>1,851.1 us</td><td>6,095.5 us</td><td>1,205.6182</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     1</td><td>                      HarrisLinkedList</td><td>26,749,535.3 us</td><td>171,364.0 us</td><td>113,346.7 us</td><td>26,980,620.1 us</td><td>0.0374</td><td>18</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>34,682,824.1 us</td><td>215,299.2 us</td><td>142,407.1 us</td><td>34,863,770.7 us</td><td>0.0288</td><td>19</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     1</td><td>                    LockBasedHashTable</td><td>3,234.4 us</td><td>2,680.3 us</td><td>1,772.9 us</td><td>8,278.2 us</td><td>309.1784</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     1</td><td>                         LockBasedList</td><td>8,226.2 us</td><td>2,815.9 us</td><td>1,862.6 us</td><td>13,508.5 us</td><td>121.5621</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>5,596,678.8 us</td><td>70,427.2 us</td><td>46,583.2 us</td><td>5,648,543.1 us</td><td>0.1787</td><td>14</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     1</td><td>                     StrippedHashTable</td><td>6,729.4 us</td><td>2,763.4 us</td><td>1,827.8 us</td><td>11,525.0 us</td><td>148.6023</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     2</td><td>                      HarrisLinkedList</td><td>13,770,513.6 us</td><td>226,130.6 us</td><td>149,571.4 us</td><td>14,070,796.2 us</td><td>0.0726</td><td>16</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>17,890,580.9 us</td><td>185,062.9 us</td><td>122,407.6 us</td><td>18,040,524.5 us</td><td>0.0559</td><td>17</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     2</td><td>                    LockBasedHashTable</td><td>3,498.1 us</td><td>2,720.6 us</td><td>1,799.5 us</td><td>8,374.9 us</td><td>285.8695</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     2</td><td>                         LockBasedList</td><td>8,867.3 us</td><td>2,809.6 us</td><td>1,858.4 us</td><td>14,145.4 us</td><td>112.7735</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>2,815,474.6 us</td><td>25,433.5 us</td><td>16,822.7 us</td><td>2,842,839.9 us</td><td>0.3552</td><td>12</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     2</td><td>                     StrippedHashTable</td><td>3,914.8 us</td><td>2,780.8 us</td><td>1,839.3 us</td><td>9,042.3 us</td><td>255.4387</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     8</td><td>                      HarrisLinkedList</td><td>4,762,000.9 us</td><td>37,509.1 us</td><td>24,809.9 us</td><td>4,832,260.0 us</td><td>0.2100</td><td>13</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>7,665,819.4 us</td><td>21,934.5 us</td><td>14,508.3 us</td><td>7,687,368.1 us</td><td>0.1304</td><td>15</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     8</td><td>                    LockBasedHashTable</td><td>5,222.1 us</td><td>2,794.7 us</td><td>1,848.5 us</td><td>10,398.3 us</td><td>191.4922</td><td>1</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     8</td><td>                         LockBasedList</td><td>14,057.7 us</td><td>3,636.0 us</td><td>2,405.0 us</td><td>20,672.0 us</td><td>71.1356</td><td>2</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>862,737.4 us</td><td>36,512.4 us</td><td>24,150.7 us</td><td>890,693.2 us</td><td>1.1591</td><td>11</td>
+</tr><tr><td>ContainsList</td><td>100000</td><td>     8</td><td>                     StrippedHashTable</td><td>2,894.9 us</td><td>2,921.6 us</td><td>1,932.5 us</td><td>8,334.4 us</td><td>345.4343</td><td>1</td>
+</tr></tbody></table>
+</body>
+</html>

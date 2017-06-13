@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>OnlyAddOperations</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.6.195-nightly, OS=Windows 10 Threshold 1 (10.0.10240)
+Processor=Intel Core i7-4790 CPU 3.60GHz (Haswell), ProcessorCount=8
+Frequency=3507505 Hz, Resolution=285.1029 ns, Timer=TSC
+  [Host]     : Clr 4.0.30319.42000, 32bit LegacyJIT-v4.6.127.1
+  GeneralJob : Clr 4.0.30319.42000, 64bit LegacyJIT/clrjit-v4.6.127.1;compatjit-v4.6.1055.0
+</code></pre>
+<pre><code>Job=GeneralJob  Jit=RyuJit  Platform=X64  
+Runtime=Clr  Concurrent=True  Server=True  
+RunStrategy=Monitoring  
+</code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>KeysCount</th><th>ThreadsCount</th><th>                              TypeName</th><th>Order</th><th>      Mean</th><th>   Error</th><th>  StdDev</th><th>       Max</th><th>Op/s</th><th>Rank</th>
+</tr>
+</thead><tbody><tr><td>AddList</td><td>100</td><td>     1</td><td>                      HarrisLinkedList</td><td>Direct</td><td>  837.2 us</td><td>3,602.5 us</td><td>2,382.9 us</td><td>7,618.5 us</td><td>1,194.4509</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                      HarrisLinkedList</td><td>Random</td><td>  923.6 us</td><td>4,029.2 us</td><td>2,665.1 us</td><td>8,508.3 us</td><td>1,082.6635</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>  850.1 us</td><td>3,654.3 us</td><td>2,417.1 us</td><td>7,728.3 us</td><td>1,176.3046</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>  883.5 us</td><td>3,854.3 us</td><td>2,549.4 us</td><td>8,139.1 us</td><td>1,131.8183</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>  954.5 us</td><td>4,076.0 us</td><td>2,696.0 us</td><td>8,626.9 us</td><td>1,047.6732</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>  895.6 us</td><td>3,784.8 us</td><td>2,503.4 us</td><td>8,019.4 us</td><td>1,116.5420</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                    LockBasedHashTable</td><td>Direct</td><td>  599.7 us</td><td>2,705.0 us</td><td>1,789.2 us</td><td>5,691.5 us</td><td>1,667.6199</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                    LockBasedHashTable</td><td>Random</td><td>  653.0 us</td><td>2,967.6 us</td><td>1,962.9 us</td><td>6,239.5 us</td><td>1,531.4609</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>  750.5 us</td><td>3,327.4 us</td><td>2,200.9 us</td><td>7,013.5 us</td><td>1,332.4362</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                         LockBasedList</td><td>Direct</td><td>  767.5 us</td><td>3,443.4 us</td><td>2,277.6 us</td><td>7,249.3 us</td><td>1,302.8881</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                         LockBasedList</td><td>Random</td><td>  795.1 us</td><td>3,595.5 us</td><td>2,378.2 us</td><td>7,563.2 us</td><td>1,257.7563</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                         LockBasedList</td><td>Reverse</td><td>  705.4 us</td><td>3,264.9 us</td><td>2,159.6 us</td><td>6,851.6 us</td><td>1,417.5747</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>2,637.0 us</td><td>4,998.8 us</td><td>3,306.4 us</td><td>11,952.9 us</td><td>379.2225</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Random</td><td>2,626.0 us</td><td>4,847.3 us</td><td>3,206.2 us</td><td>11,625.1 us</td><td>380.8035</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>2,829.6 us</td><td>5,258.6 us</td><td>3,478.2 us</td><td>12,618.7 us</td><td>353.4117</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                     StrippedHashTable</td><td>Direct</td><td>  985.9 us</td><td>4,334.9 us</td><td>2,867.2 us</td><td>9,146.1 us</td><td>1,014.2867</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                     StrippedHashTable</td><td>Random</td><td>  990.2 us</td><td>4,357.4 us</td><td>2,882.2 us</td><td>9,192.9 us</td><td>1,009.8771</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     1</td><td>                     StrippedHashTable</td><td>Reverse</td><td>1,010.9 us</td><td>4,460.9 us</td><td>2,950.6 us</td><td>9,408.4 us</td><td>989.1999</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                      HarrisLinkedList</td><td>Direct</td><td>  890.5 us</td><td>3,832.5 us</td><td>2,535.0 us</td><td>8,104.9 us</td><td>1,123.0125</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                      HarrisLinkedList</td><td>Random</td><td>  849.9 us</td><td>3,672.0 us</td><td>2,428.8 us</td><td>7,762.2 us</td><td>1,176.6597</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>  888.0 us</td><td>3,803.5 us</td><td>2,515.8 us</td><td>8,047.6 us</td><td>1,126.1856</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>  906.7 us</td><td>3,705.8 us</td><td>2,451.2 us</td><td>7,865.4 us</td><td>1,102.8503</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>1,026.0 us</td><td>4,019.9 us</td><td>2,658.9 us</td><td>8,569.1 us</td><td>974.6318</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>  970.4 us</td><td>3,892.4 us</td><td>2,574.6 us</td><td>8,274.8 us</td><td>1,030.4674</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                    LockBasedHashTable</td><td>Direct</td><td>  623.3 us</td><td>2,797.1 us</td><td>1,850.1 us</td><td>5,888.8 us</td><td>1,604.2376</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                    LockBasedHashTable</td><td>Random</td><td>  655.4 us</td><td>2,950.0 us</td><td>1,951.3 us</td><td>6,208.7 us</td><td>1,525.8646</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>  626.1 us</td><td>2,848.3 us</td><td>1,884.0 us</td><td>5,988.0 us</td><td>1,597.2245</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                         LockBasedList</td><td>Direct</td><td>  828.9 us</td><td>3,702.1 us</td><td>2,448.7 us</td><td>7,797.6 us</td><td>1,206.4476</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                         LockBasedList</td><td>Random</td><td>  785.3 us</td><td>3,565.1 us</td><td>2,358.1 us</td><td>7,496.5 us</td><td>1,273.3727</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                         LockBasedList</td><td>Reverse</td><td>  758.2 us</td><td>3,420.3 us</td><td>2,262.3 us</td><td>7,196.9 us</td><td>1,318.8588</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>2,189.5 us</td><td>4,932.8 us</td><td>3,262.7 us</td><td>11,460.6 us</td><td>456.7183</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Random</td><td>2,036.5 us</td><td>4,797.4 us</td><td>3,173.2 us</td><td>11,040.9 us</td><td>491.0409</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>2,106.5 us</td><td>4,595.5 us</td><td>3,039.6 us</td><td>10,732.1 us</td><td>474.7249</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                     StrippedHashTable</td><td>Direct</td><td>1,074.8 us</td><td>4,605.1 us</td><td>3,046.0 us</td><td>9,743.1 us</td><td>930.4220</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                     StrippedHashTable</td><td>Random</td><td>1,148.7 us</td><td>4,791.2 us</td><td>3,169.1 us</td><td>10,167.1 us</td><td>870.5863</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     2</td><td>                     StrippedHashTable</td><td>Reverse</td><td>1,115.2 us</td><td>4,665.0 us</td><td>3,085.6 us</td><td>9,896.5 us</td><td>896.6702</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                      HarrisLinkedList</td><td>Direct</td><td>  862.0 us</td><td>3,944.2 us</td><td>2,608.8 us</td><td>8,286.8 us</td><td>1,160.1578</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                      HarrisLinkedList</td><td>Random</td><td>  917.3 us</td><td>4,201.8 us</td><td>2,779.2 us</td><td>8,827.1 us</td><td>1,090.0998</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>  897.9 us</td><td>4,093.8 us</td><td>2,707.8 us</td><td>8,604.4 us</td><td>1,113.6704</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>1,019.2 us</td><td>4,356.0 us</td><td>2,881.2 us</td><td>9,198.6 us</td><td>981.1203</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>1,087.1 us</td><td>4,603.7 us</td><td>3,045.0 us</td><td>9,724.6 us</td><td>919.8807</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>  962.8 us</td><td>4,417.8 us</td><td>2,922.1 us</td><td>9,279.2 us</td><td>1,038.6760</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                    LockBasedHashTable</td><td>Direct</td><td>  732.6 us</td><td>3,025.6 us</td><td>2,001.2 us</td><td>6,426.5 us</td><td>1,364.9473</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                    LockBasedHashTable</td><td>Random</td><td>  704.1 us</td><td>2,843.2 us</td><td>1,880.6 us</td><td>6,053.6 us</td><td>1,420.2725</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>  696.9 us</td><td>2,934.8 us</td><td>1,941.2 us</td><td>6,218.7 us</td><td>1,434.9145</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                         LockBasedList</td><td>Direct</td><td>  996.6 us</td><td>3,790.6 us</td><td>2,507.2 us</td><td>8,129.4 us</td><td>1,003.4344</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                         LockBasedList</td><td>Random</td><td>1,039.0 us</td><td>3,760.4 us</td><td>2,487.3 us</td><td>8,104.6 us</td><td>962.4897</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                         LockBasedList</td><td>Reverse</td><td>1,038.8 us</td><td>3,768.3 us</td><td>2,492.5 us</td><td>8,129.7 us</td><td>962.6746</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>1,641.9 us</td><td>5,836.0 us</td><td>3,860.1 us</td><td>12,627.2 us</td><td>609.0687</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Random</td><td>1,659.6 us</td><td>5,609.0 us</td><td>3,710.0 us</td><td>12,214.4 us</td><td>602.5502</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>1,656.2 us</td><td>5,487.3 us</td><td>3,629.5 us</td><td>11,983.2 us</td><td>603.7845</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                     StrippedHashTable</td><td>Direct</td><td>1,774.2 us</td><td>5,934.1 us</td><td>3,925.1 us</td><td>12,892.1 us</td><td>563.6357</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                     StrippedHashTable</td><td>Random</td><td>1,841.8 us</td><td>5,503.8 us</td><td>3,640.4 us</td><td>12,108.0 us</td><td>542.9490</td><td>1</td>
+</tr><tr><td>AddList</td><td>100</td><td>     8</td><td>                     StrippedHashTable</td><td>Reverse</td><td>2,001.9 us</td><td>5,545.9 us</td><td>3,668.2 us</td><td>12,389.1 us</td><td>499.5307</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                      HarrisLinkedList</td><td>Direct</td><td>304,597.3 us</td><td>11,246.6 us</td><td>7,438.9 us</td><td>320,449.7 us</td><td>3.2830</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                      HarrisLinkedList</td><td>Random</td><td>314,292.9 us</td><td>20,217.0 us</td><td>13,372.3 us</td><td>338,454.3 us</td><td>3.1817</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>314,224.9 us</td><td>15,370.3 us</td><td>10,166.5 us</td><td>330,815.2 us</td><td>3.1824</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>421,965.8 us</td><td>20,065.2 us</td><td>13,271.9 us</td><td>444,475.5 us</td><td>2.3699</td><td>9</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>420,637.5 us</td><td>34,736.7 us</td><td>22,976.2 us</td><td>469,801.5 us</td><td>2.3773</td><td>9</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>415,212.3 us</td><td>17,134.4 us</td><td>11,333.3 us</td><td>430,298.5 us</td><td>2.4084</td><td>9</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                    LockBasedHashTable</td><td>Direct</td><td>1,058.0 us</td><td>2,705.3 us</td><td>1,789.4 us</td><td>6,144.8 us</td><td>945.1644</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                    LockBasedHashTable</td><td>Random</td><td>1,065.1 us</td><td>2,559.1 us</td><td>1,692.7 us</td><td>5,878.5 us</td><td>938.9151</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>1,086.4 us</td><td>2,717.1 us</td><td>1,797.2 us</td><td>6,198.7 us</td><td>920.5083</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                         LockBasedList</td><td>Direct</td><td>1,369.3 us</td><td>3,317.9 us</td><td>2,194.6 us</td><td>7,610.3 us</td><td>730.3042</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                         LockBasedList</td><td>Random</td><td>1,346.9 us</td><td>3,315.9 us</td><td>2,193.3 us</td><td>7,580.3 us</td><td>742.4548</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                         LockBasedList</td><td>Reverse</td><td>1,350.9 us</td><td>3,171.6 us</td><td>2,097.8 us</td><td>7,318.0 us</td><td>740.2454</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>496,456.4 us</td><td>18,890.1 us</td><td>12,494.7 us</td><td>512,298.1 us</td><td>2.0143</td><td>10</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Random</td><td>494,414.0 us</td><td>18,409.3 us</td><td>12,176.6 us</td><td>518,960.9 us</td><td>2.0226</td><td>10</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>493,161.0 us</td><td>21,157.1 us</td><td>13,994.1 us</td><td>521,663.7 us</td><td>2.0277</td><td>10</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                     StrippedHashTable</td><td>Direct</td><td>4,426.9 us</td><td>4,709.5 us</td><td>3,115.1 us</td><td>13,162.6 us</td><td>225.8942</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                     StrippedHashTable</td><td>Random</td><td>5,116.0 us</td><td>4,475.2 us</td><td>2,960.1 us</td><td>13,390.4 us</td><td>195.4662</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     1</td><td>                     StrippedHashTable</td><td>Reverse</td><td>4,816.3 us</td><td>4,646.4 us</td><td>3,073.3 us</td><td>13,444.6 us</td><td>207.6294</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                      HarrisLinkedList</td><td>Direct</td><td>267,146.2 us</td><td>7,199.7 us</td><td>4,762.1 us</td><td>276,083.7 us</td><td>3.7433</td><td>5</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                      HarrisLinkedList</td><td>Random</td><td>263,848.2 us</td><td>12,232.6 us</td><td>8,091.1 us</td><td>272,414.4 us</td><td>3.7901</td><td>5</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>269,008.1 us</td><td>11,498.2 us</td><td>7,605.3 us</td><td>286,457.5 us</td><td>3.7174</td><td>5</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>353,750.9 us</td><td>5,555.4 us</td><td>3,674.6 us</td><td>360,469.9 us</td><td>2.8268</td><td>7</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>348,680.5 us</td><td>5,251.6 us</td><td>3,473.6 us</td><td>356,630.4 us</td><td>2.8680</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>346,680.9 us</td><td>3,100.7 us</td><td>2,050.9 us</td><td>348,953.7 us</td><td>2.8845</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                    LockBasedHashTable</td><td>Direct</td><td>1,357.5 us</td><td>2,761.3 us</td><td>1,826.4 us</td><td>6,542.3 us</td><td>736.6541</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                    LockBasedHashTable</td><td>Random</td><td>1,476.8 us</td><td>2,896.8 us</td><td>1,916.1 us</td><td>6,902.3 us</td><td>677.1376</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>1,337.0 us</td><td>2,814.1 us</td><td>1,861.3 us</td><td>6,603.8 us</td><td>747.9167</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                         LockBasedList</td><td>Direct</td><td>5,891.1 us</td><td>2,679.7 us</td><td>1,772.4 us</td><td>10,930.6 us</td><td>169.7473</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                         LockBasedList</td><td>Random</td><td>6,001.3 us</td><td>3,317.4 us</td><td>2,194.3 us</td><td>12,229.8 us</td><td>166.6313</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                         LockBasedList</td><td>Reverse</td><td>6,090.2 us</td><td>3,109.8 us</td><td>2,056.9 us</td><td>11,905.9 us</td><td>164.1983</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>309,422.1 us</td><td>12,517.7 us</td><td>8,279.7 us</td><td>321,241.2 us</td><td>3.2318</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Random</td><td>314,100.9 us</td><td>21,250.7 us</td><td>14,056.0 us</td><td>333,201.0 us</td><td>3.1837</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>307,364.5 us</td><td>20,951.6 us</td><td>13,858.2 us</td><td>333,888.6 us</td><td>3.2535</td><td>6</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                     StrippedHashTable</td><td>Direct</td><td>5,644.8 us</td><td>5,868.6 us</td><td>3,881.7 us</td><td>16,289.1 us</td><td>177.1557</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                     StrippedHashTable</td><td>Random</td><td>7,822.3 us</td><td>13,592.3 us</td><td>8,990.5 us</td><td>30,815.1 us</td><td>127.8399</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     2</td><td>                     StrippedHashTable</td><td>Reverse</td><td>5,540.2 us</td><td>5,927.3 us</td><td>3,920.6 us</td><td>16,344.1 us</td><td>180.4978</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                      HarrisLinkedList</td><td>Direct</td><td>71,238.7 us</td><td>7,658.4 us</td><td>5,065.5 us</td><td>85,193.6 us</td><td>14.0373</td><td>2</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                      HarrisLinkedList</td><td>Random</td><td>72,681.9 us</td><td>17,027.2 us</td><td>11,262.5 us</td><td>104,371.6 us</td><td>13.7586</td><td>2</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>72,722.5 us</td><td>10,563.7 us</td><td>6,987.3 us</td><td>91,545.7 us</td><td>13.7509</td><td>2</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>92,509.4 us</td><td>12,011.5 us</td><td>7,944.8 us</td><td>114,551.5 us</td><td>10.8097</td><td>3</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>93,805.4 us</td><td>6,947.6 us</td><td>4,595.4 us</td><td>104,230.5 us</td><td>10.6604</td><td>3</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>92,555.9 us</td><td>7,662.7 us</td><td>5,068.4 us</td><td>106,421.8 us</td><td>10.8043</td><td>3</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                    LockBasedHashTable</td><td>Direct</td><td>1,997.8 us</td><td>2,814.3 us</td><td>1,861.5 us</td><td>7,266.1 us</td><td>500.5573</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                    LockBasedHashTable</td><td>Random</td><td>1,923.5 us</td><td>2,729.6 us</td><td>1,805.4 us</td><td>7,042.9 us</td><td>519.8768</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>1,800.9 us</td><td>2,563.9 us</td><td>1,695.8 us</td><td>6,570.8 us</td><td>555.2661</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                         LockBasedList</td><td>Direct</td><td>10,020.1 us</td><td>4,454.9 us</td><td>2,946.6 us</td><td>18,352.4 us</td><td>99.7995</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                         LockBasedList</td><td>Random</td><td>10,233.4 us</td><td>3,690.3 us</td><td>2,440.9 us</td><td>17,146.1 us</td><td>97.7195</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                         LockBasedList</td><td>Reverse</td><td>10,417.2 us</td><td>3,645.0 us</td><td>2,411.0 us</td><td>17,104.2 us</td><td>95.9948</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>164,714.1 us</td><td>19,259.2 us</td><td>12,738.8 us</td><td>190,372.6 us</td><td>6.0711</td><td>4</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Random</td><td>164,759.1 us</td><td>17,220.4 us</td><td>11,390.2 us</td><td>182,412.3 us</td><td>6.0695</td><td>4</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>165,767.9 us</td><td>20,348.7 us</td><td>13,459.4 us</td><td>191,097.7 us</td><td>6.0325</td><td>4</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                     StrippedHashTable</td><td>Direct</td><td>20,658.0 us</td><td>21,533.7 us</td><td>14,243.2 us</td><td>45,398.9 us</td><td>48.4074</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                     StrippedHashTable</td><td>Random</td><td>13,574.1 us</td><td>8,430.9 us</td><td>5,576.5 us</td><td>22,358.3 us</td><td>73.6699</td><td>1</td>
+</tr><tr><td>AddList</td><td>10000</td><td>     8</td><td>                     StrippedHashTable</td><td>Reverse</td><td>12,683.9 us</td><td>7,424.1 us</td><td>4,910.6 us</td><td>22,499.2 us</td><td>78.8398</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                      HarrisLinkedList</td><td>Direct</td><td>54,917,438.3 us</td><td>766,708.4 us</td><td>507,130.2 us</td><td>55,623,595.4 us</td><td>0.0182</td><td>17</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                      HarrisLinkedList</td><td>Random</td><td>55,041,403.5 us</td><td>296,104.4 us</td><td>195,854.8 us</td><td>55,337,725.2 us</td><td>0.0182</td><td>17</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>54,940,581.9 us</td><td>508,342.0 us</td><td>336,236.8 us</td><td>55,313,553.1 us</td><td>0.0182</td><td>17</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>99,550,395.9 us</td><td>4,089,920.7 us</td><td>2,705,229.4 us</td><td>103,695,908.6 us</td><td>0.0100</td><td>21</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>95,662,808.4 us</td><td>1,220,348.5 us</td><td>807,185.0 us</td><td>96,989,483.1 us</td><td>0.0105</td><td>19</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>96,449,656.1 us</td><td>868,391.1 us</td><td>574,387.0 us</td><td>97,185,227.1 us</td><td>0.0104</td><td>20</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                    LockBasedHashTable</td><td>Direct</td><td>6,291.0 us</td><td>3,226.5 us</td><td>2,134.1 us</td><td>12,293.1 us</td><td>158.9566</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                    LockBasedHashTable</td><td>Random</td><td>5,900.4 us</td><td>3,250.0 us</td><td>2,149.6 us</td><td>11,998.3 us</td><td>169.4791</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>5,843.7 us</td><td>3,046.1 us</td><td>2,014.8 us</td><td>11,534.7 us</td><td>171.1245</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                         LockBasedList</td><td>Direct</td><td>7,011.9 us</td><td>3,107.0 us</td><td>2,055.1 us</td><td>12,836.8 us</td><td>142.6157</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                         LockBasedList</td><td>Random</td><td>6,967.8 us</td><td>3,162.9 us</td><td>2,092.1 us</td><td>12,908.6 us</td><td>143.5173</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                         LockBasedList</td><td>Reverse</td><td>6,744.8 us</td><td>3,684.1 us</td><td>2,436.8 us</td><td>13,672.7 us</td><td>148.2625</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>101,188,101.1 us</td><td>1,655,517.9 us</td><td>1,095,022.6 us</td><td>102,663,326.2 us</td><td>0.0099</td><td>21</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Random</td><td>101,009,536.8 us</td><td>1,795,117.9 us</td><td>1,187,359.4 us</td><td>102,629,645.3 us</td><td>0.0099</td><td>21</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>101,191,825.1 us</td><td>1,600,242.1 us</td><td>1,058,461.1 us</td><td>102,296,664.4 us</td><td>0.0099</td><td>21</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                     StrippedHashTable</td><td>Direct</td><td>29,875.7 us</td><td>13,000.5 us</td><td>8,599.0 us</td><td>53,925.5 us</td><td>33.4721</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                     StrippedHashTable</td><td>Random</td><td>30,007.2 us</td><td>11,466.9 us</td><td>7,584.6 us</td><td>51,180.3 us</td><td>33.3254</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     1</td><td>                     StrippedHashTable</td><td>Reverse</td><td>30,243.0 us</td><td>10,557.4 us</td><td>6,983.0 us</td><td>49,518.7 us</td><td>33.0655</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                      HarrisLinkedList</td><td>Direct</td><td>39,986,680.9 us</td><td>1,699,513.5 us</td><td>1,124,123.0 us</td><td>41,505,036.2 us</td><td>0.0250</td><td>15</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                      HarrisLinkedList</td><td>Random</td><td>38,585,719.9 us</td><td>2,100,544.7 us</td><td>1,389,380.3 us</td><td>40,481,481.0 us</td><td>0.0259</td><td>15</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>39,441,006.0 us</td><td>2,199,903.4 us</td><td>1,455,099.9 us</td><td>41,280,003.3 us</td><td>0.0254</td><td>15</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>72,644,196.3 us</td><td>1,994,027.6 us</td><td>1,318,925.8 us</td><td>74,103,552.5 us</td><td>0.0138</td><td>18</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>72,173,676.3 us</td><td>2,534,115.6 us</td><td>1,676,160.7 us</td><td>74,433,198.8 us</td><td>0.0139</td><td>18</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>73,415,125.5 us</td><td>3,771,765.5 us</td><td>2,494,789.5 us</td><td>75,529,889.8 us</td><td>0.0136</td><td>18</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                    LockBasedHashTable</td><td>Direct</td><td>5,555.3 us</td><td>3,586.7 us</td><td>2,372.4 us</td><td>12,184.7 us</td><td>180.0087</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                    LockBasedHashTable</td><td>Random</td><td>5,678.9 us</td><td>4,201.7 us</td><td>2,779.1 us</td><td>13,570.9 us</td><td>176.0919</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>5,452.4 us</td><td>2,837.1 us</td><td>1,876.6 us</td><td>10,543.1 us</td><td>183.4057</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                         LockBasedList</td><td>Direct</td><td>397,261.0 us</td><td>26,446.5 us</td><td>17,492.7 us</td><td>436,348.1 us</td><td>2.5172</td><td>8</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                         LockBasedList</td><td>Random</td><td>392,543.4 us</td><td>40,223.4 us</td><td>26,605.3 us</td><td>427,691.8 us</td><td>2.5475</td><td>8</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                         LockBasedList</td><td>Reverse</td><td>387,967.0 us</td><td>8,225.5 us</td><td>5,440.7 us</td><td>394,814.5 us</td><td>2.5775</td><td>8</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>49,537,878.0 us</td><td>525,752.9 us</td><td>347,753.0 us</td><td>49,863,488.7 us</td><td>0.0202</td><td>16</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Random</td><td>49,825,503.8 us</td><td>1,004,748.1 us</td><td>664,578.7 us</td><td>50,794,593.0 us</td><td>0.0201</td><td>16</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>49,801,557.6 us</td><td>785,007.1 us</td><td>519,233.6 us</td><td>50,565,834.4 us</td><td>0.0201</td><td>16</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                     StrippedHashTable</td><td>Direct</td><td>42,579.1 us</td><td>14,957.3 us</td><td>9,893.3 us</td><td>55,093.9 us</td><td>23.4857</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                     StrippedHashTable</td><td>Random</td><td>335,590.2 us</td><td>1,404,021.3 us</td><td>928,673.2 us</td><td>2,978,224.7 us</td><td>2.9798</td><td>6</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     2</td><td>                     StrippedHashTable</td><td>Reverse</td><td>33,880.1 us</td><td>15,723.7 us</td><td>10,400.2 us</td><td>51,477.0 us</td><td>29.5159</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                      HarrisLinkedList</td><td>Direct</td><td>9,321,092.1 us</td><td>300,755.7 us</td><td>198,931.3 us</td><td>9,699,488.1 us</td><td>0.1073</td><td>12</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                      HarrisLinkedList</td><td>Random</td><td>9,360,537.0 us</td><td>269,259.5 us</td><td>178,098.5 us</td><td>9,678,290.7 us</td><td>0.1068</td><td>12</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                      HarrisLinkedList</td><td>Reverse</td><td>9,356,865.3 us</td><td>309,092.9 us</td><td>204,445.8 us</td><td>9,778,151.1 us</td><td>0.1069</td><td>12</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Direct</td><td>15,473,901.5 us</td><td>274,816.9 us</td><td>181,774.4 us</td><td>15,894,383.6 us</td><td>0.0646</td><td>13</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Random</td><td>15,637,491.2 us</td><td>321,660.6 us</td><td>212,758.6 us</td><td>15,980,126.9 us</td><td>0.0639</td><td>13</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>HarrisLinkedListWithBacklinkAndSuccessorFlag</td><td>Reverse</td><td>15,642,852.5 us</td><td>309,986.0 us</td><td>205,036.6 us</td><td>15,876,716.6 us</td><td>0.0639</td><td>13</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                    LockBasedHashTable</td><td>Direct</td><td>8,146.9 us</td><td>3,801.8 us</td><td>2,514.7 us</td><td>15,206.3 us</td><td>122.7460</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                    LockBasedHashTable</td><td>Random</td><td>7,967.4 us</td><td>3,153.1 us</td><td>2,085.6 us</td><td>13,824.4 us</td><td>125.5110</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                    LockBasedHashTable</td><td>Reverse</td><td>7,752.3 us</td><td>3,035.3 us</td><td>2,007.7 us</td><td>13,356.5 us</td><td>128.9946</td><td>1</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                         LockBasedList</td><td>Direct</td><td>537,792.3 us</td><td>48,465.7 us</td><td>32,057.1 us</td><td>580,110.4 us</td><td>1.8595</td><td>11</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                         LockBasedList</td><td>Random</td><td>532,078.1 us</td><td>56,977.9 us</td><td>37,687.3 us</td><td>580,999.9 us</td><td>1.8794</td><td>11</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                         LockBasedList</td><td>Reverse</td><td>525,732.8 us</td><td>51,459.3 us</td><td>34,037.1 us</td><td>569,130.8 us</td><td>1.9021</td><td>11</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Direct</td><td>17,507,962.3 us</td><td>677,255.0 us</td><td>447,962.3 us</td><td>18,036,610.1 us</td><td>0.0571</td><td>14</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Random</td><td>17,612,166.6 us</td><td>803,884.7 us</td><td>531,720.0 us</td><td>18,909,937.7 us</td><td>0.0568</td><td>14</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                  SkipListWithBacklink</td><td>Reverse</td><td>17,542,281.7 us</td><td>724,977.0 us</td><td>479,527.4 us</td><td>18,499,875.0 us</td><td>0.0570</td><td>14</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                     StrippedHashTable</td><td>Direct</td><td>892,409.5 us</td><td>894,397.9 us</td><td>591,588.8 us</td><td>1,433,626.5 us</td><td>1.1206</td><td>11</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                     StrippedHashTable</td><td>Random</td><td>870,166.9 us</td><td>862,025.8 us</td><td>570,176.7 us</td><td>1,308,885.9 us</td><td>1.1492</td><td>11</td>
+</tr><tr><td>AddList</td><td>100000</td><td>     8</td><td>                     StrippedHashTable</td><td>Reverse</td><td>827,870.4 us</td><td>759,363.3 us</td><td>502,271.8 us</td><td>1,279,554.0 us</td><td>1.2079</td><td>11</td>
+</tr></tbody></table>
+</body>
+</html>
